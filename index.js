@@ -1,5 +1,6 @@
 import express, { urlencoded } from 'express';
 import cookieParser from 'cookie-parser';
+import connectDB from './utils/db.js';
 import dotenv from 'dotenv';
 dotenv.config({});
 
@@ -13,5 +14,6 @@ app.use(urlencoded({ extended: true }));
 
 
 app.listen(PORT, () => {
-    console.log(`server running at port ${PORT}`);
+    console.log(`Server running at port ${PORT}`);
+    connectDB();
 })
