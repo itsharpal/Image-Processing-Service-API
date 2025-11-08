@@ -17,9 +17,26 @@ export const uploadImage = async (req, res) => {
             width: meta.width,
             height: meta.height
         })
-        
+
         res.status(201).json({ message: "Uploaded successfully", image });
     } catch (err) {
         res.status(500).json({ message: "Upload failed" });
+    }
+};
+
+export const getImage = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const images = await Image.find({ owner: userId }).sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            count: images.length,
+            images,
+        });
+        
+    } catch (error) {
+        console.error("Error fetching images:", error);
+        res.status(500).json({ message: "Server error" });
     }
 };
